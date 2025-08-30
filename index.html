@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin and Faculty Evaluation for VMC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Removed invalid shell command; Tailwind is already loaded via CDN above. -->
+  <script src="app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+  <div id="js-status" class="bg-yellow-200 text-yellow-800 p-2 text-center text-sm">VMC Portal Loading...</div>
+
+  <header class="bg-[#25A2DC] text-white p-4 shadow-md">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+      <div class="flex items-center mb-4 md:mb-0">
+        <a href="#" id="header-home-link" class="flex items-center cursor-pointer">
+          <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mr-4 overflow-hidden">
+            <img src="icon.png" alt="VMC Logo" class="w-full h-full object-cover">
+          </div>
+          <div class="text-2xl md:text-3xl font-bold text-center md:text-left">
+           <div class="marquee-container"><span class="marquee-text">VILLAGERS MONTESSORI COLLEGE</span></div> <br>
+            <span class="text-lg md:text-xl font-normal">TOTAL QUALITY EDUCATION, AND THRUST</span>
+          </div>
+        </a>
+      </div>
+      <nav class="navbar flex flex-wrap justify-center md:justify-end space-x-2 md:space-x-6 mt-4 md:mt-0">
+        <div class="nav-item"><button class="nav-link" data-page="home">Home</button></div>
+        <div class="nav-item"><button class="nav-link" data-page="evaluation">Evaluation</button></div>
+        <div class="nav-item relative user-dropdown">
+          <button class="nav-link"><i class="fa fa-user user-icon"></i></button>
+          <div class="dropdown-content">
+            <button class="nav-link-dropdown" data-page="profile">Profile</button>
+            <button class="nav-link-dropdown" data-page="login">Log In</button>
+            <button class="nav-link-dropdown" data-page="signup">Sign Up</button>
+            <button class="nav-link-dropdown" data-page="logout">Log Out</button>
+          </div>
+        </div>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i> <!-- Default icon, will be updated by JS -->
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-grow container mx-auto p-6 mt-6 rounded-lg shadow-xl">
+    <!-- Redesigned homepage -->
+    <section id="home-page" class="page-content active">
+  <div class="w-full flex flex-col items-center" style="background:transparent;">
+    <!-- Main Title Section -->
+    <div class="w-full bg-[#25A2DC] py-8 px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2" style="text-shadow:0 2px 12px #2186eb;">
+        Villagers Montessori College Evaluation Portal
+      </h2>
+      <p class="text-lg md:text-xl text-white font-medium mt-2">
+        Unified Digital System for Admin and Faculty Evaluation
+      </p>
+    </div>
+    <!-- Image/Video Section with Floating Text -->
+    <div class="relative w-full max-w-full mx-auto mt-0 mb-8" style="background:rgba(37,162,220,0.32);">
+      <img src="vmc-campus.png" alt="VMC Campus" class="w-full rounded-xl shadow-lg object-cover" style="height:520px;object-fit:cover;">
+      <!-- Floating Text Left -->
+      <div class="absolute top-0 left-0 h-full w-1/2 flex flex-col justify-center items-center" style="background:rgba(37,162,220,0.32);">
+        <div class="text-white text-base md:text-lg font-medium mb-2 text-left drop-shadow-lg px-6 py-4">
+          <h3 class="text-2xl font-bold mb-2">Philosophy</h3>
+          <span class="block mb-4">Our core philosophy, Total Quality Education (TQE), values both IQ and EQ, cultivating character and competence for holistic success.</span>
+          <h3 class="text-2xl font-bold mb-2">Vision</h3>
+          <span class="block mb-4">To be the leading institution for Total Quality Education, empowering holistic leaders through authentic Montessori principles for a sustainable future.</span>
+          <h3 class="text-2xl font-bold mb-2">Mission</h3>
+          <span class="block">We provide Total Quality Education and exceptional service, guided by Montessori philosophy, to nurture well-rounded individuals for transformative impact.</span>
+        </div>
+      </div>
+      <!-- Floating Text Right (Video) -->
+      <div class="absolute top-0 right-0 h-full w-1/2 flex flex-col justify-center items-center" style="background:rgba(37,162,220,0.32);">
+        <video class="w-11/12 mt-2 rounded-lg shadow" autoplay loop muted>
+          <source src="Villagers Montessori College @38.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+        <section id="evaluation-page" class="page-content" style="display:none;">
+  <div class="w-full bg-[#25A2DC] py-8 px-4 text-center">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-white dark:text-gray-200 mb-4" style="text-shadow:0 2px 12px #2186eb;">
+      Faculty and Department Evaluation
+    </h1>
+  </div>
+  <div class="flex flex-col items-center justify-center w-full px-2 py-8 bg-gray-100">
+    <div class="w-full max-w-6xl bg-white rounded-3xl p-8 flex flex-col gap-8 shadow-lg">
+      <form id="evaluationForm" class="flex flex-row gap-8 flex-wrap">
+        <div class="flex flex-col gap-6 min-w-[260px] max-w-[340px] flex-1">
+          <div class="form-group">
+            <label for="yearLevel" class="font-bold text-gray-700 mb-2 block">Button for Year/Lvl:</label>
+            <select id="yearLevel" required class="rounded-full px-4 py-2 w-full bg-gray-50 border border-gray-300 text-black">
+              <option value="">Select Year/Level or Department</option>
+              <optgroup label="Basic Education">
+                <option value="grade-1">Grade 1</option>
+                <option value="grade-2">Grade 2</option>
+                <option value="grade-3">Grade 3</option>
+                <option value="grade-4">Grade 4</option>
+                <option value="grade-5">Grade 5</option>
+                <option value="grade-6">Grade 6</option>
+                <option value="grade-7">Grade 7</option>
+                <option value="grade-8">Grade 8</option>
+                <option value="grade-9">Grade 9</option>
+                <option value="grade-10">Grade 10</option>
+              </optgroup>
+              <optgroup label="Senior High School">
+                <option value="shs-11">Grade 11</option>
+                <option value="shs-12">Grade 12</option>
+              </optgroup>
+              <optgroup label="College">
+                <option value="college-1">1st Year College</option>
+                <option value="college-2">2nd Year College</option>
+                <option value="college-3">3rd Year College</option>
+                <option value="college-4">4th Year College</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="personnel" class="font-bold text-gray-700 mb-2 block">Person or Department to Evaluate:</label>
+            <select id="personnel" class="rounded-full px-4 py-2 w-full bg-gray-50 border border-gray-300 text-black">
+              <option value="">-Name of the Personnel or Dept.-</option>
+              <option value="teacher1">Mr. Roberto Bula Jr.</option>
+              <option value="teacher2">Ms. Michelle B. Placides</option>
+              <option value="teacher3">Mr. Roldan-Jhay A. Lincalio</option>
+              <option value="department1">IT Department</option>
+              <option value="department2">Registrar Department</option>
+              <option value="department3">Accounting Department</option>
+              <option value="department4">Maintenance Department</option>
+            </select>
+          </div>
+          <div class="form-group bg-[#e0f2fe] rounded-2xl px-4 py-4">
+            <label for="subject" class="font-semibold text-gray-800 mb-2 block">Subject of teachers</label>
+            <select id="subject" class="rounded-full px-4 py-2 w-full bg-white border border-gray-300 text-black">
+              <option value="">-- Select Subject --</option>
+              <option value="math">Mathematics</option>
+              <option value="science">Science</option>
+              <option value="english">English</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex-2 min-w-[320px] flex flex-col justify-between w-full">
+          <div class="bg-gray-50 border rounded-3xl min-h-[320px] p-8 flex items-center justify-center text-center text-gray-600 font-medium">
+            <!-- Additional evaluation details or questions can go here -->
+            schedules and code<br>of subjects
+          </div>
+        </div>
+      </form>
+      <div class="flex flex-row justify-between items-center mt-8 w-full">
+        <button type="button" class="bg-[#2665ed] hover:bg-[#1d4ed8] text-white font-bold py-3 px-8 rounded-lg shadow transition-colors text-lg" id="start-eval-btn">
+          Start Evaluation
+        </button>
+      </div>
+      <!-- Generated code evaluation area (hidden by default) -->
+      <div id="generated-eval-area" style="display:none;" class="mt-8 bg-white rounded-2xl p-8 shadow-lg">
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="professor-list-page" class="page-content">
+      <div class="card" style="max-width:420px;margin:2rem auto;">
+        <div class="card-inner" style="background:#fff;border-radius:14px;box-shadow:0 2px 14px rgba(0,0,0,0.07);padding:18px 10px;">
+          <div class="card-header" style="font-weight:bold;font-size:1.1em;margin-bottom:10px;">
+            <strong>List of Professor</strong>
+          </div>
+          <div class="card-body" id="professor-list" style="min-height:40px;">
+          </div>
+        </div>
+        <div class="card-footer" style="margin-top:12px;display:flex;flex-direction:column;align-items:center;">
+          <button class="results-btn" style="background:#2186eb;color:#000000;border:none;border-radius:5px;padding:8px 22px;font-size:1em;font-weight:bold;cursor:pointer;margin-bottom:10px;">See results</button>
+          <div class="pagination" style="display:flex;align-items:center;gap:6px;">
+            <button type="button" class="pagination-btn" id="prof-prev-btn">Previous</button>
+            <span class="current-page page-num" id="currentPage">1</span>
+            <button type="button" class="pagination-btn" id="prof-next-btn">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile-page" class="page-content">
+      <h2 class="text-3xl font-bold text-center mb-8 text-blue-800">My Profile</h2>
+      <div class="profile-layout">
+        <div class="profile-card md:col-span-1">
+          <div class="profile-pic"><img id="profile-img" src="placeholder.jpg" alt="Profile Picture"></div>
+          <form id="profile-form" class="mt-6">
+            <label class="block text-gray-700 font-bold mb-2" for="name">Name:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="name" type="text" placeholder="Name">
+            <label class="block text-gray-700 font-bold mt-4 mb-2" for="number">Student Number:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="number" type="text" placeholder="Student Number">
+            <label class="block text-gray-700 font-bold mt-4 mb-2" for="password">Password:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="password" type="password" placeholder="Password">
+            <label class="block text-gray-700 font-bold mt-4 mb-2" for="profile-picture-upload">Upload New Profile Picture:</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="profile-picture-upload" type="file">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-6 w-full transition-colors" type="submit">Update Profile</button>
+          </form>
+        </div>
+        <div class="calendar-section md:col-span-2">
+          <div class="calendar-header"><button id="prev-month">&lt;</button><h4 id="current-month-year"></h4><button id="next-month">&gt;</button></div>
+          <div class="weekdays"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
+          <div class="dates" id="calendar-dates"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGIN (wired to API) -->
+    <section id="login-page" class="page-content">
+      <div class="signup-form">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
+        <!-- action wired to backend -->
+        <form id="loginForm" class="mt-4" action="api/login.php" method="POST" novalidate>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="login-email">Email</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="login-email" name="email" type="email" placeholder="you@school.edu" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="login-password">Password</label>
+            <div class="password-input-container">
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="login-password" name="password" type="password" placeholder="Password" required>
+              <i class="fa-solid fa-eye password-toggle-icon" id="toggle-login-password"></i>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mb-6">
+            <label class="flex items-center text-gray-700 text-sm">
+              <input class="mr-2 leading-tight" type="checkbox">
+              <span class="text-sm">Remember Me</span>
+            </label>
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">Forgot Password?</a>
+          </div>
+           <div class="create-account">
+                <span>Don't have an account?</span>
+                <span class="create-account-link" id="signupLink">Create an account</span>
+            </div>
+          <div class="flex items-center justify-between">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition-colors" type="submit">Sign In</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SIGNUP (wired to API + email verification) -->
+    <section id="signup-page" class="page-content">
+      <div class="signup-form">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Sign Up</h2>
+        <form id="signupForm" class="mt-4" action="api/signup.php" method="POST" novalidate>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="signup-full-name">Full Name</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="signup-full-name" name="full_name" type="text" placeholder="Full Name" required>
+          </div>
+          <!-- Optional UI fields kept (course/year/student#) but not posted to backend -->
+          <div class="mb-4">
+            <label class="block text-black-700 font-bold mb-2" for="signup-course">Course</label>
+            <select id="signup-course" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"><option value="">-- Select Course --</option></select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-black-700 font-bold mb-2" for="signup-year-level">Year Level</label>
+            <select id="signup-year-level" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"><option value="">-- Select Year Level --</option></select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="signup-student-number">Student Number</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="signup-student-number" type="text" placeholder="Student Number">
+          </div>
+          <div class="mb-1">
+            <label class="block text-gray-700 font-bold mb-2" for="signup-email">Email</label>
+            <div class="email-verification-group">
+              <input class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="signup-email" name="email" type="email" placeholder="you@school.edu" required>
+              <button type="button" id="send-code-btn">Send Code</button>
+            </div>
+            <p id="verify-msg" class="text-sm text-gray-600"></p>
+          </div>
+          <!-- Add input box for verification code (hidden initially) -->
+          <div id="code-wrap" class="mb-4 hidden">
+            <label class="block text-gray-700 font-bold mb-2" for="signup-verification-code">Verification Code</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="signup-verification-code" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit code">
+            <button type="button" id="verify-code-btn" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors w-full">Verify Code</button>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="signup-password">Password</label>
+            <div class="password-input-container">
+              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="signup-password" name="password" type="password" minlength="8" placeholder="At least 8 characters" required>
+              <i class="fa-solid fa-eye password-toggle-icon" id="toggle-signup-password"></i>
+            </div>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 font-bold mb-2" for="signup-confirm-password">Confirm Password</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="signup-confirm-password" type="password" placeholder="Confirm Password" required>
+            <p id="pw-match-msg" class="text-xs text-gray-500 mt-1"></p>
+          </div>
+          <input type="hidden" name="role" value="student" />
+          <div class="flex items-center justify-between">
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition-colors" type="submit" id="signup-submit-btn" disabled>Sign Up</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div id="feedback-modal-overlay" class="modal-overlay">
+      <div class="modal-content">
+        <div class="loading-spinner" id="loading-spinner"></div>
+        <h3 id="feedback-modal-title">Submitting Evaluation...</h3>
+        <p id="feedback-modal-text">Please wait while we process your feedback.</p>
+        <button id="close-feedback-modal-btn" class="hidden">Close</button>
+      </div>
+    </div>
+
+   <!-- ✅ Admin Results Page (added) -->
+  <section id="admin-results-page" class="page-content" style="display:none;">
+    <div class="bg-[#25A2DC] py-6 px-4 text-center rounded-t-lg">
+      <h1 class="text-3xl font-bold text-white">Evaluation Results</h1>
+      <p class="text-white mt-2">Overview of faculty and department evaluation scores</p>
+    </div>
+    <div class="p-6 bg-white shadow-lg rounded-b-lg">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="border p-2 text-left">Name / Department</th>
+            <th class="border p-2 text-center">Average Score</th>
+            <th class="border p-2 text-center">Evaluations Count</th>
+          </tr>
+        </thead>
+        <tbody id="admin-results-table">
+          <!-- JS will populate dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Admin Dashboard -->
+  <section id="admin-dashboard" class="page-content" style="display:none;">
+    <h2>Admin Dashboard</h2>
+    <div class="admin-cards">
+      <div class="card">Total Users</div>
+      <div class="card">Total Evaluations</div>
+      <div class="card">Departments</div>
+    </div>
+  </section>
+
+</main>
+   <footer class="footer bg-[#25A2DC] text-white">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="footer-section text-center md:text-left">
+        <h3 class="text-xl font-bold mb-4">About Us</h3>
+        <p class="text-sm">Villagers Montessori College provides total quality education and is committed to academic excellence and holistic development. We are a leading institution dedicated to nurturing future leaders.</p>
+      </div>
+      <div class="footer-section text-center md:text-left">
+        <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+        <p class="text-sm"><i class="fa fa-map-marker-alt mr-2"></i>Villagers Montessori College, Project 8, Quezon City<br><i class="fa fa-phone mr-2 mt-2"></i>+63 2 8696-6548<br><i class="fa fa-envelope mr-2 mt-2"></i>vmceduph1983@gmail.com</p>
+      </div>
+      <div class="footer-section text-center md:text-left">
+        <h3 class="text-xl font-bold mb-4">Follow Us</h3>
+        <div class="flex justify-center md:justify-start space-x-4">
+          <a href="https://www.facebook.com/villagersmontessoricollege1983" class="text-white hover:text-gray-300 transition"><i class="fab fa-facebook-f text-lg"></i></a>
+          <a href="https://www.instagram.com/villagersmontessoriofficial/?g=5" class="text-white hover:text-gray-300 transition"><i class="fab fa-instagram text-lg"></i></a>
+          <a href="https://www.youtube.com/@villagersmontessoricollege7075" class="text-white hover:text-gray-300 transition"><i class="fab fa-youtube text-lg"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t mt-8 pt-6 text-center text-sm"><p>&copy; 2025 Villagers Montessori College. All Rights Reserved.</p></div>
+  </footer>
+
+  <div id="custom-context-menu" class="custom-context-menu">
+    <div class="context-menu-item" data-page="home">Home</div>
+    <div class="context-menu-item" data-page="evaluation">Evaluation</div>
+    <div class="context-menu-item" data-page="profile">Profile</div>
+    <div class="context-menu-item" data-page="login">Log In</div>
+    <div class="context-menu-item" data-page="signup">Sign Up</div>
+    <div class="context-menu-item" data-page="logout">Log Out</div>
+  </div>
+</body>
+</html>
