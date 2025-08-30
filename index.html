@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin and Faculty Evaluation for VMC</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Removed invalid shell command; Tailwind is already loaded via CDN above. -->
   <script src="app.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -273,8 +272,8 @@
             </div>
             <p id="verify-msg" class="text-sm text-gray-600"></p>
           </div>
-          <!-- Add input box for verification code (hidden initially) -->
-          <div id="code-wrap" class="mb-4 hidden">
+          <!-- Add input box for verification code (always visible) -->
+          <div id="code-wrap" class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="signup-verification-code">Verification Code</label>
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" id="signup-verification-code" type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit code">
             <button type="button" id="verify-code-btn" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors w-full">Verify Code</button>
